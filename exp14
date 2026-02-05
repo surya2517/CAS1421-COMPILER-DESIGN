@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+void main() {
+    char exp[50];
+    
+    // Example Input: a=b+c
+    printf("Enter a simple expression (e.g., a=b+c): ");
+    scanf("%s", exp);
+
+    printf("\nThree Address Code:\n");
+    
+    // Index 0: Result (a)
+    // Index 1: Assignment (=)
+    // Index 2: Operand 1 (b)
+    // Index 3: Operator (+)
+    // Index 4: Operand 2 (c)
+    
+    printf("Result: %c\n", exp[0]);
+    printf("Op 1:   %c\n", exp[2]);
+    printf("Op:     %c\n", exp[3]);
+    printf("Op 2:   %c\n", exp[4]);
+    
+    printf("\nGenerated TAC: %c := %c %c %c\n", exp[0], exp[2], exp[3], exp[4]);
+}
