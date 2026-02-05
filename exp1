@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+void lexer(char *source) {
+    int i = 0;
+    while (source[i] != '\0') {
+        if (isspace(source[i])) {
+            i++;
+            continue;
+        }
+        if (source[i] == '/' && source[i+1] == '/') {
+            while (source[i] != '\n' && source[i] != '\0') i++;
+            continue;
+        }
+        if (isalpha(source[i])) {
+            printf("Identifier: ");
+            while (isalnum(source[i])) {
+                putchar(source[i++]);
+            }
+            printf("\n");
+        } 
+        else if (isdigit(source[i])) {
+            printf("Constant:   ");
+            while (isdigit(source[i])) {
+                putchar(source[i++]);
+            }
+            printf("\n");
+        } 
+        else if (strchr("+-*/=", source[i])) {
+            printf("Operator:   %c\n", source[i++]);
+        } 
+        else {
+            i++; 
+        }
+    }
+}
+
+int main() {
+    char code[] = "int x = 50 + 20; // Example code";
+    lexer(code);
+    return 0;
+}
