@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#define MAX 10
+#define SIZE 100
+char nonTerminals[MAX][SIZE];
+char productions[MAX][SIZE];
+int n;
+void trailing(char nt) {
+    printf("TRAILING(%c) = { ", nt);
+
+    for (int i = 0; i < n; i++) {
+        if (nonTerminals[i][0] == nt) {
+            char prodCopy[SIZE];
+            strcpy(prodCopy, productions[i]);
+
+            char *token = strtok(prodCopy, "|");
+            while (token != NULL) {
+                int len = strlen(token);
+                char last = token[len - 1];
+
+                if (isalpha(last) && islower(last)) {
+                    // terminal like id (single char here)
+                    printf("%c ", last);
+                } else if (ispunct(last)) {
+                    // punctuation terminal like ')'
+                    printf("%c ", last);
+                } else if (isupper(last)) {
+                    // non-terminal, just print its name (simple version)
+                    printf("%c ", last);
+                }
+
+                token = strtok(NULL, "|");
+            }
+        }
+    }
+    printf("}\n");
+}
+int main() {
+    printf("Enter number of non-terminals: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        printf("Enter non-terminal: ");
+        scanf("%s", nonTerminals[i]);
+        printf("Enter productions (use | for multiple): ");
+        scanf("%s", productions[i]);
+    }
+    printf("\nTRAILING sets:\n");
+    for (int i = 0; i < n; i++) {
+        trailing(nonTerminals[i][0]);
+    }
+    return 0;
+}
