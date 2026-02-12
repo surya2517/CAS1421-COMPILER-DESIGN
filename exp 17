@@ -1,0 +1,22 @@
+#include <stdio.h>
+void LEADING(char symbol) {
+    switch(symbol) {
+        case 'E':
+            printf("LEADING(E) = { ( , id }\n");
+            break;
+        case 'T':
+            printf("LEADING(T) = { ( , id }\n");
+            break;
+        case 'F':
+            printf("LEADING(F) = { ( , id }\n");
+            break;
+        default:
+            printf("No LEADING set defined for %c\n", symbol);
+    }
+}
+int main() {
+    LEADING('E');
+    LEADING('T');
+    LEADING('F');
+    return 0;
+}
