@@ -1,0 +1,22 @@
+#include <stdio.h>
+void FIRST(char symbol) {
+    switch(symbol) {
+        case 'S':
+            printf("FIRST(S) = { a, b }\n");
+            break;
+        case 'A':
+            printf("FIRST(A) = { ε }\n");
+            break;
+        case 'B':
+            printf("FIRST(B) = { ε }\n");
+            break;
+        default:
+            printf("No FIRST set defined for %c\n", symbol);
+    }
+}
+int main() {
+    FIRST('S');
+    FIRST('A');
+    FIRST('B');
+    return 0;
+}
