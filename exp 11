@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <string.h>
+
+char table[10][20]; // Stores up to 10 names
+int count = 0;
+
+int main() {
+    int choice;
+    char name[20];
+
+    while (1) {
+        printf("\n1.Insert 2.Display 3.Exit: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            printf("Enter name: ");
+            scanf("%s", table[count++]);
+        } 
+        else if (choice == 2) {
+            for (int i = 0; i < count; i++) 
+                printf("%d. %s\n", i + 1, table[i]);
+        } 
+        else break;
+    }
+    return 0;
+}
