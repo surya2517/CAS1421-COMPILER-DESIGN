@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char c;
+    while ((c = getchar()) != '#') {
+        if (isspace(c)) continue;
+        if (isalpha(c)) {
+            while (isalnum(c)) { printf("%c", c); c = getchar(); }
+            printf(" : ID\n"); ungetc(c, stdin);
+        } else if (isdigit(c)) {
+            while (isdigit(c)) { printf("%c", c); c = getchar(); }
+            printf(" : CONST\n"); ungetc(c, stdin);
+        } else if (c=='+'||c=='-'||c=='*'||c=='/'||c=='=') {
+            printf("%c : OP\n", c);
+        }
+    }
+    return 0;
+}
