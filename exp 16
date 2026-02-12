@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <ctype.h>
+char input[100];
+int pos = 0, tempCount = 1;
+char* E(), *T(), *F();
+char* newTemp() {
+    static char buf[10];
+    sprintf(buf, "t%d", tempCount++);
+    return buf;
+}
+void emit(char op, char *arg1, char *arg2, char *res) {
+    printf("%s = %s %c %s\n", res, arg1, op, arg2);
+}
+char* F() {
+    static char buf[10];
+    if (isalpha(input[pos])) {
+        sprintf(buf, "%c", input[pos++]); // variable/id
+        return buf;
+    }
+    return NULL;
+}
+char* T() {
+    char* f = F();
+    while (input[pos] == '*' || input[pos] == '/') {
+        char op = input[pos++];
+        char* f2 = F();
+        char* temp = newTemp();
+        emit(op, f, f2, temp);
+        f = temp;
+    }
+    return f;
+}
+char* E() {
+    char* t = T();
+    while (input[pos] == '+' || input[pos] == '-') {
+        char op = input[pos++];
+        char* t2 = T();
+        char* temp = newTemp();
+        emit(op, t, t2, temp);
+        t = temp;
+    }
+    return t;
+}
+int main() {
+    printf("Enter expression: ");
+    scanf("%s", input);
+
+    char* result = E();
+    if (input[pos] == '\0') {
+        printf("Final result in %s\n", result);
+    } else {
+        printf("Error: invalid input.\n");
+    }
+    return 0;
+}
