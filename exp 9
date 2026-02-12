@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char nonTerminal[10], prod[100], beta[10][100], alpha[10][100];
+    int n, alphaCount = 0, betaCount = 0;
+
+    printf("Enter Non-terminal: ");
+    scanf("%s", nonTerminal);
+    printf("Enter number of productions: ");
+    scanf("%d", &n);
+
+    printf("Enter productions (use | for alternatives):\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%s", prod);
+        if (prod[0] == nonTerminal[0]) {
+            strcpy(alpha[alphaCount++], prod + 1); // remove leading A
+        } else {
+            strcpy(beta[betaCount++], prod);
+        }
+    }
+
+    if (alphaCount == 0) {
+        printf("%s -> ", nonTerminal);
+        for (int i = 0; i < betaCount; i++) {
+            printf("%s", beta[i]);
+            if (i < betaCount - 1) printf(" | ");
+        }
+        printf("\n");
+    } else {
+        printf("%s -> ", nonTerminal);
+        for (int i = 0; i < betaCount; i++) {
+            printf("%s%s' ", beta[i], nonTerminal);
+            if (i < betaCount - 1) printf("| ");
+        }
+        printf("\n");
+
+        printf("%s' -> ", nonTerminal);
+        for (int i = 0; i < alphaCount; i++) {
+            printf("%s%s' ", alpha[i], nonTerminal);
+            if (i < alphaCount - 1) printf("| ");
+        }
+        printf("| ε\n");
+    }
+
+    return 0;
+}
