@@ -1,0 +1,77 @@
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+char input[100];
+int pos = 0;
+void E();
+void Eprime();
+void T();
+void Tprime();
+void F();
+
+void match(char c) {
+    if (input[pos] == c) {
+        pos++;
+    } else {
+        printf("Error: expected '%c' at position %d\n", c, pos);
+        exit(1);
+    }
+}
+
+void E() {
+    T();
+    Eprime();
+}
+
+void Eprime() {
+    if (input[pos] == '+') {
+        match('+');
+        T();
+        Eprime();
+    }
+    // epsilon → do nothing
+}
+
+void T() {
+    F();
+    Tprime();
+}
+
+void Tprime() {
+    if (input[pos] == '*') {
+        match('*');
+        F();
+        Tprime();
+    }
+    // epsilon → do nothing
+}
+
+void F() {
+    if (input[pos] == '(') {
+        match('(');
+        E();
+        match(')');
+    } else if (isalpha(input[pos])) { // id
+        match(input[pos]);
+    } else {
+        printf("Error: invalid factor at position %d\n", pos);
+        exit(1);
+    }
+}
+
+int main() {
+    printf("Enter input string: ");
+    scanf("%s", input);
+
+    E();
+
+    if (input[pos] == '\0') {
+        printf("String accepted: valid according to grammar.\n");
+    } else {
+        printf("Error: extra symbols at the end.\n");
+    }
+
+    return 0;
+}
