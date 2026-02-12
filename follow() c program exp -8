@@ -1,0 +1,23 @@
+#include <stdio.h>
+void FOLLOW(char symbol) {
+    switch(symbol) {
+        case 'S':
+            printf("FOLLOW(S) = { $ }\n");
+            break;
+        case 'A':
+            printf("FOLLOW(A) = { a, $ }\n");
+            break;
+        case 'B':
+            printf("FOLLOW(B) = { b, $ }\n");
+            break;
+        default:
+            printf("No FOLLOW set defined for %c\n", symbol);
+    }
+}
+
+int main() {
+    FOLLOW('S');
+    FOLLOW('A');
+    FOLLOW('B');
+    return 0;
+}
