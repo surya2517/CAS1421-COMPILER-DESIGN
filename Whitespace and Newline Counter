@@ -1,0 +1,18 @@
+%{
+#include <stdio.h>
+int ws = 0, nl = 0;
+%}
+
+%%
+[ \t] { ws++; }
+\n    { nl++; }
+.     { /* skip other chars */ }
+%%
+
+int yywrap() { return 1; }
+int main() {
+    printf("Enter text (Press Ctrl+D to end):\n");
+    yylex();
+    printf("\nWhitespaces: %d\nNewlines: %d\n", ws, nl);
+    return 0;
+}
